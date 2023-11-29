@@ -3,7 +3,9 @@ package com.tahera.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
+@Table(
+    name = "books",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
 public class Book {
     public Book(Long id, String title, int rate, boolean isRead, String author) {
         this.id = id;
@@ -20,7 +22,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true, name = "title")
+    @Column(name = "title")
     private String title;
 
     @Column(name = "rate")
@@ -29,7 +31,7 @@ public class Book {
     @Column(name = "isread")
     private boolean isRead;
 
-    @Column(unique = true, name = "author")
+    @Column(name = "author")
     private String author;
 
     public Long getId() {
