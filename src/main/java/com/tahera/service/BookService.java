@@ -3,18 +3,19 @@ package com.tahera.service;
 import com.tahera.model.Book;
 import com.tahera.model.dto.BookDTO;
 import com.tahera.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
 
-    @Autowired
-    BookRepository bookRepository;
+    final BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public List<BookDTO> getAllBooks() {
         List<Book> allBooks = bookRepository.findAll();

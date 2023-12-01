@@ -1,25 +1,25 @@
 package com.tahera.service;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import com.tahera.model.Book;
 import com.tahera.model.dto.BookDTO;
 import com.tahera.repository.BookRepository;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
-    @Autowired
-    private Book book;
     @InjectMocks
     BookService bookService;
     @Mock
