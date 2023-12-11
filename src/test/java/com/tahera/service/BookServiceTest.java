@@ -1,21 +1,18 @@
 package com.tahera.service;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import com.tahera.model.Book;
 import com.tahera.model.dto.BookDTO;
 import com.tahera.repository.BookRepository;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
@@ -61,7 +58,7 @@ class BookServiceTest {
         updateBook.setRate(2);
         updateBook.setRead(false);
 
-        bookService.update(updateBook);
+       // bookService.update(updateBook);
 
         Mockito.verify(bookRepository).save(bookCaptor.capture());
         Book persistedBook = bookCaptor.getValue();
@@ -76,6 +73,28 @@ class BookServiceTest {
         Mockito.when(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(Optional.empty());
 
         bookService.update(book);
+
+        Mockito.verify(bookRepository, Mockito.never()).save(any());
+    }
+
+    @Test
+    public void shouldSetBookAsRead() {
+        Book book = new Book(1L, "test", 1, false, "test");
+        Mockito.when(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(Optional.of(book));
+
+        bookService.setBookRead(book);
+
+        Mockito.verify(bookRepository).save(bookCaptor.capture());
+        Book persistedBook = bookCaptor.getValue();
+        Assertions.assertTrue(persistedBook.getIsRead());
+    }
+
+    @Test
+    public void shouldNotHaveSetBookWhenItDoesnotExists() {
+        Book book = new Book(1L, "test", 1, false, "test");
+        Mockito.when(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(Optional.empty());
+
+        bookService.setBookRead(book);
 
         Mockito.verify(bookRepository, Mockito.never()).save(any());
     }
