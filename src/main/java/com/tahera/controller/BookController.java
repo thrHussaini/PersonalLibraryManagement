@@ -17,26 +17,31 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<List<BookDTO>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public void registerNewBook(@RequestBody Book book) {
         bookService.addNewBook(book);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}")
     public void deleteByID(@PathVariable Long id) {
         bookService.deleteByID(id);
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping
     public void update(@RequestBody Book book) {
         bookService.update(book);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/setBookRead")
     public ResponseEntity setBookRead(@RequestBody Book book){
         boolean markedAsRead=bookService.setBookRead(book);
