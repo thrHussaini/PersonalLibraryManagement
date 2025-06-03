@@ -4,6 +4,9 @@ import com.tahera.model.Book;
 import com.tahera.model.dto.BookDTO;
 import com.tahera.repository.BookRepository;
 import org.springframework.stereotype.Service;
+import com.tahera.model.UserEntity;
+import com.tahera.repository.UserRepository;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +16,11 @@ import java.util.stream.Collectors;
 public class BookService {
 
     final BookRepository bookRepository;
+    final UserRepository userRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, UserRepository userRepository) {
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
     }
 
     public List<BookDTO> getAllBooks() {
